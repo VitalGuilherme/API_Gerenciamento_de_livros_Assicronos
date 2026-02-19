@@ -27,6 +27,8 @@ async def registros_livros():
 
 @app.put("/livros/{id_livro}")
 async def livro_atu(id_livro: int, livro_atualizado: Livro):
+    if livro_atualizado.id != id_livro:
+        raise HTTPException(status_code=400, detail="O ID do livro deve ser igual ao ID informando na URL.")
     for i, livro in enumerate(biblioteca):
         if livro.id == id_livro:
             biblioteca[i] = livro_atualizado
